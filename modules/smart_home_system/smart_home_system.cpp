@@ -11,6 +11,7 @@
 #include "pc_serial_com.h"
 #include "event_log.h"
 #include "motion_sensor.h"
+#include "ldr_sensor.h"
 #include "motor.h"
 #include "gate.h"
 #include "light_system.h"
@@ -41,6 +42,7 @@ void smartHomeSystemInit()
     motorControlInit();
     gateInit();
     lightSystemInit();
+    ldrInit();
 }
 
 void smartHomeSystemUpdate()
@@ -53,6 +55,11 @@ void smartHomeSystemUpdate()
     pcSerialComUpdate();
     motorControlUpdate();
     lightSystemUpdate();
+    ldrUpdate();
+    // then print to serial:
+    char buf[64];
+    int  n = snprintf(buf, sizeof(buf), "LDR raw: %.3f   filt: %.3f\r\n", ldrGetRaw(), ldrGetFiltered());
+    pcSerialComStringWrite(buf);
     delay(SYSTEM_TIME_INCREMENT_MS);
 }
 

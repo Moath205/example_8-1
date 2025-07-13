@@ -267,7 +267,7 @@ static void userInterfaceDisplayAlarmStateUpdate()
 
 static void userInterfaceDisplayInit()
 {
-    displayInit( DISPLAY_TYPE_GLCD_ST7920, DISPLAY_CONNECTION_SPI );
+    displayInit( DISPLAY_TYPE_LCD_HD44780, DISPLAY_CONNECTION_I2C_PCF8574_IO_EXPANDER );
     userInterfaceDisplayReportStateInit();
 }
 
